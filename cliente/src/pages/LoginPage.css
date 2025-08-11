@@ -64,7 +64,7 @@ h1 {
 .botonLogin{
     display: flex;
     direction: flexStart;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 12px;
     height: 33px;
     text-align: center;
@@ -86,8 +86,8 @@ h1 {
 }
 
 .loginPageDerecha img {
-  max-width: 100%;
-  max-height: 1000%;
+  max-width: 110%;
+  max-height: 80%;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -107,7 +107,7 @@ h1 {
     border: 1px solid #495057;
     border-radius: 10px;
     transition: box-shadow 0.15s ease-in-out;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .input::placeholder {
@@ -127,3 +127,5 @@ input:-webkit-autofill {
     -webkit-text-fill-color: #000 !important;
     transition: background-color 5000s ease-in-out 0s;
 }
+
+
