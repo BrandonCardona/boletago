@@ -5,6 +5,7 @@ import { resError } from "./utils/resError.js";
 import { normalizarError } from "./utils/codigosErrores.js";
 import cookieParser from "cookie-parser";
 import { apiRouter } from "./routes/api.route.js";
+import { eventoRouter } from "./routes/evento.route.js";
 import { authMiddleware } from "./middlewares/auth.js";
 
 const app = express();
@@ -19,6 +20,8 @@ app.use("/api", authMiddleware);
 app.use("/auth", authRouter);
 
 app.use("/api", apiRouter);
+
+app.use("/evento", eventoRouter);
 
 app.use((err, req, res, next) => {
   const { status, message } = normalizarError(err);

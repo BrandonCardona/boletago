@@ -1,5 +1,6 @@
 import { AuthController } from "./auth.controller.js";
 import { catchedAsync } from "../utils/catchedAsync.js";
+import { EventoController } from "./evento.controller.js";
 
 export const WrappedAuthController = {
   getUsers: catchedAsync(AuthController.getUsers),
@@ -9,3 +10,8 @@ export const WrappedAuthController = {
   clearRefreshToken: catchedAsync(AuthController.clearRefreshToken),
   clearAccessToken: catchedAsync(AuthController.clearAccessToken),
 };
+
+export const WrappeEventosController = {
+  getEventos: catchedAsync(EventoController.getEventos),
+  getEventoById: catchedAsync(EventoController.getEventoById)
+}
