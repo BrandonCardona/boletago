@@ -20,7 +20,7 @@ function LoginPage() {
                                     onError={() => {
                                         console.log('Error de conexion');
                                     }}
-                                    size="small"
+                                    size="large"
                                     theme="filled_black"
                                     shape="pill"
                                 />
