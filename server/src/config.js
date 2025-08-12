@@ -15,4 +15,5 @@ export const {
   SALT_ROUNDS,
   SECRET_KEY,
   NODE_ENV,
+  CSRF_SECRET_KEY,
 } = process.env;

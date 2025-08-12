@@ -1,4 +1,4 @@
-import { NODE_ENV, SECRET_KEY } from "../config.js";
+import { CSRF_SECRET_KEY, NODE_ENV, SECRET_KEY } from "../config.js";
 import { AuthModel } from "../models/auth.model.js";
 import { validatePartialUser, validateUser } from "../schemas/user.js";
 import { ClientError } from "../utils/errors.js";
@@ -52,6 +52,10 @@ export class AuthController {
       }
     );
 
+    const csrfToken = jwt.sign({ id: userInfo.id_usuario }, CSRF_SECRET_KEY, {
+      expiresIn: "5m",
+    });
+
     const refreshToken = await AuthModel.createToken({
       userId: userInfo.id_usuario,
       userAgent: req.headers["user-agent"],
@@ -75,7 +79,7 @@ export class AuthController {
         path: "/auth/refresh",
       });
 
-    response(res, 200, { userInfo, expiresIn });
+    response(res, 200, { userInfo, expiresIn, csrfToken });
   };
 
   static refreshToken = async (req, res) => {
@@ -97,6 +101,10 @@ export class AuthController {
       { expiresIn: "5m" }
     );
 
+    const newCsrfToken = jwt.sign({ id: user.id_usuario }, CSRF_SECRET_KEY, {
+      expiresIn: "5m",
+    });
+
     res.cookie("access_token", newAccessToken, {
       httpOnly: true,
       secure: NODE_ENV === "production",
@@ -104,7 +112,7 @@ export class AuthController {
       path: "/api",
     });
 
-    response(res, 200, { message: "Access Token Refresh" });
+    response(res, 200, { message: "Access Token Refresh", newCsrfToken });
   };
 
   static clearRefreshToken = async (req, res) => {
