@@ -105,14 +105,22 @@ export class AuthController {
       expiresIn: "5m",
     });
 
+    const expiresIn = 1000 * 60 * 5;
+
     res.cookie("access_token", newAccessToken, {
       httpOnly: true,
       secure: NODE_ENV === "production",
       sameSite: "lax",
       path: "/api",
+      maxAge: expiresIn,
     });
 
-    response(res, 200, { message: "Access Token Refresh", newCsrfToken });
+    response(res, 200, {
+      message: "Access Token Refresh",
+      csrfToken: newCsrfToken,
+      expiresIn,
+      userInfo: user,
+    });
   };
 
   static clearRefreshToken = async (req, res) => {

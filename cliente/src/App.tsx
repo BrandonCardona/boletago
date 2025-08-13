@@ -1,10 +1,11 @@
 import "./App.css";
-import LoginPage from "./pages/LoginPage";
+import { VITE_API_URL } from "./config";
+import LoginPage from "./pages/LoginPage.tsx";
 
 function App() {
-  return (
-    <LoginPage />
-  );
+  console.log(VITE_API_URL);
+
+  return <LoginPage />;
 }
 
 export default App;

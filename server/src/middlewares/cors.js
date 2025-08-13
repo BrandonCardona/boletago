@@ -15,5 +15,6 @@ export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => {
 
       return callback(new Error("Not alloweb by CORS"));
     },
+    credentials: true,
   });
 };
