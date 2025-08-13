@@ -1,0 +1,13 @@
+.title {
+  cursor: pointer;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.session_button {
+  cursor: pointer;
+}
+
+.session_button:hover {
+  color: rgb(212, 212, 200);
+}

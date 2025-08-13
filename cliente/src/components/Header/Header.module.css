@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background-color: #49525a;
+}
+
+.ul_list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.5rem;
+  align-items: center;
+}

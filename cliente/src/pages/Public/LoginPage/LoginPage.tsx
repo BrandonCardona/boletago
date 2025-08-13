@@ -1,12 +1,15 @@
 import "./LoginPage.css";
-import fotoLogin from "../assets/img/ticket.png";
+import fotoLogin from "../../../assets/img/ticket.png";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { useLogin } from "../hooks/useLogin";
+import { useLogin } from "../../../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
+import { PublicRoutes } from "../../../models";
 
 const CLIENTID =
   "616921257373-tu90riec4hfrc8aai06ibhch0cf1ao1v.apps.googleusercontent.com";
 
-function LoginPage() {
+export const LoginPage = () => {
+  const navigate = useNavigate();
   const { doLogin } = useLogin();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,8 +18,8 @@ function LoginPage() {
     const email = formData.get("correo") as string;
     const password = formData.get("contraseña") as string;
 
-    console.log(email, password);
     doLogin({ email, password });
+    navigate(`/${PublicRoutes.HOME}`);
   };
 
   return (
@@ -69,6 +72,4 @@ function LoginPage() {
       </div>
     </GoogleOAuthProvider>
   );
-}
-
-export default LoginPage;
+};

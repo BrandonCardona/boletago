@@ -1,16 +1,17 @@
 import "./App.css";
-import { Test } from "./components/Test/Test.tsx";
+import { AppRoutes } from "./AppRoutes.tsx";
+import { Header, LoadingScreen } from "./components/index.ts";
 import { useAuthContext } from "./context/AuthContext.ts";
-import LoginPage from "./pages/LoginPage.tsx";
 
 function App() {
-  const { logout } = useAuthContext();
+  const { isLoading } = useAuthContext();
+
+  if (isLoading) return <LoadingScreen active={isLoading} />;
 
   return (
     <>
-      <button onClick={logout}>Logout</button>
-      <Test />
-      <LoginPage />
+      <Header />
+      <AppRoutes />
     </>
   );
 }

@@ -31,13 +31,14 @@ export const AuthProvider = ({ children }: Props) => {
     userInfo: null,
     csrfToken: null,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const scheduleTokenRefresh = useCallback((expiresIn: number) => {
     if (refreshTimeoutRef.current) {
       clearTimeout(refreshTimeoutRef.current);
     }
     const refreshTime = expiresIn - 10 * 1000;
-    // const refreshTime = expiresIn - 280 * 1000;
+    // const refreshTime = expiresIn - 292 * 1000;
     refreshTimeoutRef.current = setTimeout(() => {
       console.log("⏳ Token por expirar, refrescando...");
       refreshAuthRef.current?.();
@@ -58,13 +59,13 @@ export const AuthProvider = ({ children }: Props) => {
         scheduleTokenRefresh(data.expiresIn);
       }
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        if (err.response?.status === 401) {
-          setAuth({ userInfo: null, csrfToken: null });
-        }
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        setAuth({ userInfo: null, csrfToken: null });
       } else {
         console.log(err);
       }
+    } finally {
+      setIsLoading(false);
     }
   }, [scheduleTokenRefresh]);
 
@@ -104,7 +105,14 @@ export const AuthProvider = ({ children }: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, refreshAuth, logout, scheduleTokenRefresh }}
+      value={{
+        auth,
+        setAuth,
+        refreshAuth,
+        logout,
+        scheduleTokenRefresh,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

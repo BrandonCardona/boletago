@@ -12,6 +12,7 @@ interface AuthContextProps {
   refreshAuth: () => Promise<void>;
   logout: () => Promise<void>;
   scheduleTokenRefresh: (expiresIn: number) => void;
+  isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
