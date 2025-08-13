@@ -30,14 +30,13 @@ export const attachInterceptors = ({
   apiAxios.interceptors.response.use(
     (res) => res,
     async (error) => {
-      console.log("Original Request Error", error);
       const originalRequest = error.config;
 
       if (
         axios.isAxiosError(error) &&
         error.response?.status === 401 &&
         !originalRequest._retry &&
-        !originalRequest.includes("/auth/refresh/refresh-token")
+        !originalRequest.baseURL.includes("/auth/refresh/refresh-token")
       ) {
         originalRequest._retry = true;
 

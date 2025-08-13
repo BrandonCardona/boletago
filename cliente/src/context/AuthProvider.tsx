@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: Props) => {
   const attachedRef = useRef(false);
   const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const refreshAuthRef = useRef<() => Promise<void> | null>(null);
+  const csrfTokenRef = useRef<string | null>(null);
   const [auth, setAuth] = useState<AuthState>({
     userInfo: null,
     csrfToken: null,
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }: Props) => {
     if (refreshTimeoutRef.current) {
       clearTimeout(refreshTimeoutRef.current);
     }
-    const refreshTime = expiresIn - 15 * 1000;
+    const refreshTime = expiresIn - 10 * 1000;
     // const refreshTime = expiresIn - 280 * 1000;
     refreshTimeoutRef.current = setTimeout(() => {
       console.log("⏳ Token por expirar, refrescando...");
@@ -77,6 +78,10 @@ export const AuthProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
+    csrfTokenRef.current = auth.csrfToken;
+  }, [auth.csrfToken]);
+
+  useEffect(() => {
     refreshAuthRef.current = refreshAuth;
     refreshAuth();
 
@@ -90,12 +95,12 @@ export const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     if (!attachedRef.current) {
       attachInterceptors({
-        getCsrfToken: () => auth.csrfToken,
+        getCsrfToken: () => csrfTokenRef.current,
         setAuth: (data) => setAuth((prev) => ({ ...prev, ...data })),
       });
       attachedRef.current = true;
     }
-  }, [auth.csrfToken]);
+  }, []);
 
   return (
     <AuthContext.Provider

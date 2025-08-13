@@ -1,11 +1,18 @@
 import "./App.css";
-import { VITE_API_URL } from "./config";
+import { Test } from "./components/Test/Test.tsx";
+import { useAuthContext } from "./context/AuthContext.ts";
 import LoginPage from "./pages/LoginPage.tsx";
 
 function App() {
-  console.log(VITE_API_URL);
+  const { logout } = useAuthContext();
 
-  return <LoginPage />;
+  return (
+    <>
+      <button onClick={logout}>Logout</button>
+      <Test />
+      <LoginPage />
+    </>
+  );
 }
 
 export default App;
