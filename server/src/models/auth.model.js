@@ -15,8 +15,9 @@ export class AuthModel {
 
   static getUserById = async ({ id }) => {
     const result = await pool.query(
-      `SELECT id_usuario
-      FROM usuario 
+      `SELECT U.id_usuario, U.nombre, 
+      U.correo, R.nombre_rol 
+      FROM usuario as U INNER JOIN rol as R ON (R.id_rol = U.id_rol) 
       WHERE id_usuario = $1`,
       [id]
     );
