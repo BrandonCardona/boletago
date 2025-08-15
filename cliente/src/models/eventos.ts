@@ -8,3 +8,7 @@ export interface EventosData {
   nombre_estadio: string;
   nombre_artista: string;
 }
+
+export interface SingleEventData extends EventosData {
+  hora: string;
+}

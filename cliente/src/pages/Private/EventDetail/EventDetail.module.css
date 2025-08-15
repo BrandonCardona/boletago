@@ -1,0 +1,84 @@
+.wrapper {
+  background-color: #121212;
+  height: 100vh;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .topSection {
+    flex-direction: row;
+  }
+}
+
+.imageContainer {
+  flex: 1;
+  min-height: 300px;
+  max-height: 600px;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoContainer {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eventName {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.dateTime {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #1db954;
+}
+
+.location,
+.stadium {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.bottomBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background-color: #1e1e1e;
+  border-top: 1px solid #333;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailLabel {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+  color: #1db954;
+}
+
+.error {
+  color: red;
+  padding: 2rem;
+  text-align: center;
+}
