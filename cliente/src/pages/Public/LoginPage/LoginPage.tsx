@@ -1,37 +1,36 @@
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 import fotoLogin from "../../../assets/img/ticket.png";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { useLogin } from "../../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { PublicRoutes } from "../../../models";
-
-const CLIENTID =
-  "616921257373-tu90riec4hfrc8aai06ibhch0cf1ao1v.apps.googleusercontent.com";
+import { Login } from "../../../components";
+import { VITE_API_CLIENTID } from "../../../config";
+import { LoginTittle } from "../../../components/Login/LoginTitle/LoginTitle";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { doLogin } = useLogin();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("correo") as string;
     const password = formData.get("contraseña") as string;
 
-    doLogin({ email, password });
+    const result = await doLogin({ email, password });
+    if (!result) return console.log("Usuario no logueado");
     navigate(`/${PublicRoutes.HOME}`);
   };
 
   return (
-    <GoogleOAuthProvider clientId={CLIENTID}>
+    <GoogleOAuthProvider clientId={VITE_API_CLIENTID}>
       <div>
-        <div className="loginPage">
-          <div className="loginPageIzquierda">
-            <h1>
-              BOLETA<span className="verde">GO</span>
-            </h1>
-            <form onSubmit={handleSubmit}>
-              <div className="botonGoogle">
+        <div className={styles.loginPage}>
+          <div className={styles.loginPageIzquierda}>
+            <LoginTittle />
+            <Login handleSubmit={handleSubmit} styles={styles}>
+              <div className={styles.botonGoogle}>
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     console.log("usuario logueado", credentialResponse);
@@ -44,28 +43,9 @@ export const LoginPage = () => {
                   shape="pill"
                 />
               </div>
-              <input
-                className="input correo"
-                type="email"
-                id="correo"
-                name="correo"
-                required
-                placeholder="Correo Electronico"
-              />
-              <input
-                className="input contraseña"
-                type="password"
-                id="contraseña"
-                name="contraseña"
-                required
-                placeholder="Contraseña"
-              />
-              <button className="botonLogin" type="submit">
-                Iniciar sesion
-              </button>
-            </form>
+            </Login>
           </div>
-          <div className="loginPageDerecha">
+          <div className={styles.loginPageDerecha}>
             <img src={fotoLogin} alt="Fondo Boleta" />
           </div>
         </div>
