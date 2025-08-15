@@ -9,11 +9,6 @@ interface LoginData {
   csrfToken: string;
 }
 
-interface LoginResponse {
-  error: boolean;
-  data: LoginData;
-}
-
 export const useLogin = () => {
   const [data, setData] = useState<LoginData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,20 +20,23 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(undefined);
     try {
-      const response = (await loginUser({
+      const response = await loginUser({
         email,
         password,
-      })) as LoginResponse;
+      });
+      if (response.status !== 200) throw new Error();
 
-      const resData = response.data;
+      const resData = response.data.data as LoginData;
       setAuth({
         userInfo: resData.userInfo,
         csrfToken: resData.csrfToken,
       });
       scheduleTokenRefresh(resData.expiresIn);
       setData(resData);
+      return true;
     } catch (err) {
       setError(err as Error);
+      return false;
     } finally {
       setIsLoading(false);
     }

@@ -12,7 +12,7 @@ export const LogoButton = () => {
   return (
     <>
       <p className={style.title} onClick={handleNavigate}>
-        BoletaGO
+        Boleta<span className={style.red}>GO</span>
       </p>
     </>
   );

@@ -4,6 +4,12 @@
   font-weight: bold;
 }
 
+.red {
+  color: #c93438;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(201, 52, 56, 0.6);
+}
+
 .session_button {
   cursor: pointer;
 }
