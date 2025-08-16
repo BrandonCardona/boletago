@@ -1,5 +1,7 @@
 import { CSRF_SECRET_KEY, NODE_ENV, SECRET_KEY } from "../config.js";
+import { DEFAULT_USERS } from "../libs/roles.js";
 import { AuthModel } from "../models/auth.model.js";
+import { RoleModel } from "../models/role.model.js";
 import { validatePartialUser, validateUser } from "../schemas/user.js";
 import { ClientError } from "../utils/errors.js";
 import { response } from "../utils/response.js";
@@ -23,7 +25,14 @@ export class AuthController {
       throw new ClientError(JSON.stringify(errors), 400);
     }
 
-    const newUser = await AuthModel.createUser({ input: result.data });
+    const role = await RoleModel.getRoleByName({
+      name: DEFAULT_USERS.USER_ROLE,
+    });
+
+    const newUser = await AuthModel.createUser({
+      input: result.data,
+      roleId: role.id_rol,
+    });
 
     response(res, 201, newUser);
   };
