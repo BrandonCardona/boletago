@@ -7,11 +7,13 @@ import { PublicRoutes } from "../../../models";
 import { Login } from "../../../components";
 import { VITE_API_CLIENTID } from "../../../config";
 import { LoginTittle } from "../../../components/Login/LoginTitle/LoginTitle";
+import { useModalContext } from "../../../Modal/context/ModalContext";
+import { ModalRegister } from "../../../components/ModalRegister/ModalRegister";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { doLogin } = useLogin();
-
+  const { stateRegister } = useModalContext();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -49,7 +51,8 @@ export const LoginPage = () => {
             <img src={fotoLogin} alt="Fondo Boleta" />
           </div>
         </div>
+          {stateRegister && <ModalRegister />}
       </div>
-    </GoogleOAuthProvider>
+        </GoogleOAuthProvider>
   );
 };

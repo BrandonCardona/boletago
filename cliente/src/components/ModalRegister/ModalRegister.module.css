@@ -1,0 +1,48 @@
+.modal-content {
+    background-color: #1b1b1b;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.6rem 0.9rem;
+    font-size: 15px;
+    color: #f5f5f5;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-top: 14px;
+    transition: all 0.2s ease;
+}
+
+.input::placeholder {
+    color: #aaa;
+}
+
+.input:focus {
+    border: 1px solid #e84545;
+    box-shadow: 0 0 8px rgba(232, 69, 69, 0.6);
+    outline: none;
+}
+
+.botonLogin {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #e84545;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.botonLogin:hover {
+    background-color: #d13434;
+    transform: scale(1.02);
+}
