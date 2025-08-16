@@ -1,4 +1,5 @@
 import { RoleModel } from "../models/role.model.js";
+import { ClientError } from "../utils/errors.js";
 import { DEFAULT_USERS } from "./roles.js";
 
 export const createRoles = async () => {
@@ -13,6 +14,6 @@ export const createRoles = async () => {
       RoleModel.createRole({ roleName: DEFAULT_USERS.ADMIN_ROLE }),
     ]);
   } catch (err) {
-    throw err;
+    throw new ClientError("Internal Error", 500);
   }
 };
