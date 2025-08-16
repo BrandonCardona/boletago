@@ -1,11 +1,11 @@
-import { EventList, LoadingScreen, ModalLogin } from "../../../components";
+import { EventList, LoadingScreen, ModalLogin, ModalRegister } from "../../../components";
 import { useEventos } from "../../../hooks";
 import { useModalContext } from "../../../Modal/context/ModalContext";
 import styles from "./HomePage.module.css";
 
 export const HomePage = () => {
   const { data, error, loading } = useEventos();
-  const { state } = useModalContext();
+  const { state, stateRegister } = useModalContext();
 
   if (loading) return <LoadingScreen active={loading} />;
   if (error) return <div>Tenemos un Error...</div>;
@@ -16,6 +16,7 @@ export const HomePage = () => {
         <EventList eventList={data} />
       </div>
       {state && <ModalLogin />}
+      {stateRegister && <ModalRegister />}
     </>
   );
 };

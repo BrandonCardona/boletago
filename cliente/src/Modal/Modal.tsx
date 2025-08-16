@@ -11,6 +11,7 @@ const eventListener = "keydown";
 
 export const Modal = ({ children }: ModalProps) => {
   const { state, setState } = useModalContext();
+
   const modalRoot = document.getElementById("modal");
 
   const closeModal = () => {

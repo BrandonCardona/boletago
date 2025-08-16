@@ -5,6 +5,10 @@ interface ModalContextProps {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   pendingPath: string;
   setPendingPath: React.Dispatch<React.SetStateAction<string>>;
+
+  // Modal de registro
+  stateRegister: boolean;
+  setStateRegister: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ModalContext = createContext<ModalContextProps | undefined>(

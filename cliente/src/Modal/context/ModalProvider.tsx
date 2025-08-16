@@ -8,11 +8,13 @@ interface ModalProviderProps {
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [state, setState] = useState(false);
   const [pendingPath, setPendingPath] = useState("");
+  const [stateRegister, setStateRegister] = useState(false);
+
 
   return (
     <>
       <ModalContext.Provider
-        value={{ state, setState, pendingPath, setPendingPath }}
+        value={{ state, setState, stateRegister, setStateRegister, pendingPath, setPendingPath }}
       >
         {children}
       </ModalContext.Provider>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useModalContext } from "../../Modal/context/ModalContext";
 
 interface LoginProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -7,6 +8,8 @@ interface LoginProps {
 }
 
 export const Login = ({ handleSubmit, children, styles }: LoginProps) => {
+const { setState, setStateRegister } = useModalContext();
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -30,6 +33,17 @@ export const Login = ({ handleSubmit, children, styles }: LoginProps) => {
         <button className={styles.botonLogin} type="submit">
           Iniciar sesion
         </button>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            setState(false);      
+            setStateRegister(true); 
+          }}
+        >
+          Crear una cuenta
+        </a>
+
       </form>
     </>
   );
