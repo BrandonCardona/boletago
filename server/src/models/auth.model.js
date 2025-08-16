@@ -27,7 +27,7 @@ export class AuthModel {
     return result.rows[0];
   };
 
-  static createUser = async ({ input }) => {
+  static createUser = async ({ input, roleId }) => {
     const { name, email, password } = input;
 
     const hashedPassword = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
@@ -35,8 +35,8 @@ export class AuthModel {
     const result = await pool.query(
       `INSERT INTO usuario
       (nombre, correo, contrasena, id_rol)
-	    VALUES ($1, $2, $3, 2) RETURNING *`,
-      [name, email, hashedPassword]
+	    VALUES ($1, $2, $3, $4) RETURNING *`,
+      [name, email, hashedPassword, roleId]
     );
 
     return result.rows[0];
