@@ -54,6 +54,7 @@ export class AuthController {
     const accessToken = jwt.sign(
       {
         id: userInfo.id_usuario,
+        rol: userInfo.nombre_rol,
       },
       SECRET_KEY,
       {
@@ -61,9 +62,13 @@ export class AuthController {
       }
     );
 
-    const csrfToken = jwt.sign({ id: userInfo.id_usuario }, CSRF_SECRET_KEY, {
-      expiresIn: "5m",
-    });
+    const csrfToken = jwt.sign(
+      { id: userInfo.id_usuario, rol: userInfo.nombre_rol },
+      CSRF_SECRET_KEY,
+      {
+        expiresIn: "5m",
+      }
+    );
 
     const refreshToken = await AuthModel.createToken({
       userId: userInfo.id_usuario,
@@ -105,14 +110,19 @@ export class AuthController {
     const newAccessToken = jwt.sign(
       {
         id: user.id_usuario,
+        rol: user.nombre_rol,
       },
       SECRET_KEY,
       { expiresIn: "5m" }
     );
 
-    const newCsrfToken = jwt.sign({ id: user.id_usuario }, CSRF_SECRET_KEY, {
-      expiresIn: "5m",
-    });
+    const newCsrfToken = jwt.sign(
+      { id: user.id_usuario, rol: user.nombre_rol },
+      CSRF_SECRET_KEY,
+      {
+        expiresIn: "5m",
+      }
+    );
 
     const expiresIn = 1000 * 60 * 5;
 
