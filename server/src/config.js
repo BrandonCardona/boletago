@@ -16,4 +16,5 @@ export const {
   SECRET_KEY,
   NODE_ENV,
   CSRF_SECRET_KEY,
+  API_KEY,
 } = process.env;
