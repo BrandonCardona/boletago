@@ -7,7 +7,8 @@ export const loginUser = async ({ email, password }: LoginProps) => {
   return response.data;
 };
 
-export const registerUser = async ({nombre, email, password}: RegisterProps) =>{
-  const response = await rawAxios.post(`/auth/register`, { nombre, email, password });
+export const registerUser = async ({name, email, password}: RegisterProps) =>{
+  const response = await rawAxios.post(`/auth/register`, {name, email, password });
   return response.data;
 };
+
