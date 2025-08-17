@@ -13,5 +13,8 @@ export const WrappedAuthController = {
 
 export const WrappeEventosController = {
   getEventos: catchedAsync(EventoController.getEventos),
-  getEventoById: catchedAsync(EventoController.getEventoById)
+  getEventoById: catchedAsync(EventoController.getEventoById),
+  postEvento: catchedAsync(EventoController.postEvento),
+  putEvento: catchedAsync(EventoController.putEvento),
+  deleteEvento: catchedAsync(EventoController.deleteEvento)
 }
