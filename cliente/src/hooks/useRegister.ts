@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { RegisterProps } from "../models/user";
 import { registerUser } from "../services/auth";
+import { handleApiError } from "../utilities/handleApiError";
+import { toast } from "react-toastify";
 
 export const useRegister = () => {
     const [data, setData] = useState<RegisterProps | null>(null);
@@ -13,11 +15,16 @@ export const useRegister = () => {
 
         try {
             const response = await registerUser({ name, email, password });
+            toast.success("Registro exitoso");
+
             setData(response);
             return true;
+
         } catch (err) {
+            handleApiError(err);
             setError(err as Error);
             return false;
+
         } finally {
             setIsLoading(false);
         }
