@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { LoginProps, UserInfo } from "../models/user";
 import { loginUser } from "../services/auth";
 import { useAuthContext } from "../context/AuthContext";
+import { handleApiError } from "../utilities/handleApiError";
+import { toast } from "react-toastify"; 
 
 interface LoginData {
   userInfo: UserInfo;
@@ -19,12 +21,14 @@ export const useLogin = () => {
   const doLogin = async ({ email, password }: LoginProps) => {
     setIsLoading(true);
     setError(undefined);
+
     try {
-      const response = await loginUser({
-        email,
-        password,
-      });
-      if (response.status !== 200) throw new Error();
+      const response = await loginUser({ email, password });
+
+      if (response.status !== 200) {
+        handleApiError(response);
+        return false;
+      }
 
       const resData = response.data.data as LoginData;
       setAuth({
@@ -33,10 +37,15 @@ export const useLogin = () => {
       });
       scheduleTokenRefresh(resData.expiresIn);
       setData(resData);
+      toast.success("Bienvenido");
       return true;
+
     } catch (err) {
+
+      handleApiError(err);
       setError(err as Error);
       return false;
+
     } finally {
       setIsLoading(false);
     }

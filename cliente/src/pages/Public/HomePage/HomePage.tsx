@@ -2,13 +2,20 @@ import { EventList, LoadingScreen, ModalLogin, ModalRegister } from "../../../co
 import { useEventos } from "../../../hooks";
 import { useModalContext } from "../../../Modal/context/ModalContext";
 import styles from "./HomePage.module.css";
-
+import { handleApiError } from "../../../utilities/handleApiError";
+import { useEffect } from "react";
 export const HomePage = () => {
   const { data, error, loading } = useEventos();
   const { state, stateRegister } = useModalContext();
 
+  useEffect(() => {
+    if (error) {
+      handleApiError(error);
+    }
+  }, [error]);
+
   if (loading) return <LoadingScreen active={loading} />;
-  if (error) return <div>Tenemos un Error...</div>;
+  if (error) return null;
   return (
     <>
       <div className={styles.home_body}>
@@ -17,6 +24,7 @@ export const HomePage = () => {
       </div>
       {state && <ModalLogin />}
       {stateRegister && <ModalRegister />}
+      
     </>
   );
 };
