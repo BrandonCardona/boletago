@@ -8,3 +8,4 @@ authRouter.post("/login", WrappedAuthController.login);
 authRouter.post("/register", WrappedAuthController.register);
 authRouter.post("/refresh/refresh-token", WrappedAuthController.refresh);
 authRouter.get("/refresh/logout", WrappedAuthController.clearRefreshToken);
+

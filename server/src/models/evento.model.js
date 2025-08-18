@@ -38,4 +38,93 @@ export class EventoModel {
       throw new ClientError("Error al consultar el evento por ID", 500);
     }
   };
+
+  static postEvento = async (eventosData) => {
+    try {
+      const { nombre_evento, fecha, hora, ciudad, direccion, id_estadio, id_artista, imagen } = eventosData;
+
+      const fechaCompleta = `${fecha} ${hora}`;
+
+      const query = `
+        INSERT INTO evento (nombre_evento, fecha, ciudad, direccion, id_estadio, id_artista, imagen)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING id_evento, nombre_evento
+      `;
+
+      const values = [
+        nombre_evento,
+        fechaCompleta,
+        ciudad,
+        direccion,
+        id_estadio,
+        id_artista,
+        imagen,
+      ];
+
+      const result = await pool.query(query, values);
+
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error al insertar el evento:", error);
+      throw new ClientError("Error al crear el evento", 500);
+    }
+  };
+
+  static putEvento = async (id, eventosData) => {
+    try {
+      const { nombre_evento, fecha, hora, ciudad, direccion, id_estadio, id_artista, imagen } = eventosData;
+      const fechaCompleta = `${fecha} ${hora}`;
+      const query = `
+      UPDATE evento
+      SET nombre_evento = $1,
+          fecha = $2,
+          ciudad = $3, 
+          direccion = $4,
+          id_estadio = $5,
+          id_artista = $6,
+          imagen = $7
+      WHERE id_evento = $8 
+      RETURNING *`;
+      const values = [
+        nombre_evento,
+        fechaCompleta,
+        ciudad,
+        direccion,
+        id_estadio,
+        id_artista,
+        imagen,
+        id
+      ];
+
+      const result = await pool.query(query, values);
+      if (result.rowCount === 0) {
+        throw new ClientError("Evento no encontrado", 404);
+      }
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error al actualizar el evento:", error);
+      throw new ClientError("Error al actualizar el evento", 500);
+    }
+  }
+
+  static deleteRecurso = async (id) => {
+    try {
+      const query = `
+      DELETE FROM evento 
+      WHERE id_evento = $1 
+      RETURNING*`;
+      const result = await pool.query(query, [id]);
+
+      if (result.rowCount === 0) {
+        throw new ClientError("Evento no encontrado", 404);
+      }
+
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error al eliminar el evento:", error);
+      throw new ClientError("Error al eliminar el evento", 500);
+    }
+  }
 }
+
+
