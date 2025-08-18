@@ -1,12 +1,30 @@
 import type { EventosData } from "../../../models/eventos";
 import styles from "./SingleEvent.module.css";
 
+interface AdminActionsType {
+  editEvent: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => void;
+  deleteEvent: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => void;
+}
+
 interface SingleEventProps {
   event: EventosData;
   handleClick: (id: number) => void;
+  isAdmin: boolean;
+  adminActions: AdminActionsType;
 }
 
-export const SingleEvent = ({ event, handleClick }: SingleEventProps) => {
+export const SingleEvent = ({
+  event,
+  handleClick,
+  isAdmin,
+  adminActions: { editEvent, deleteEvent },
+}: SingleEventProps) => {
   const [day, month, year] = event.fecha.split("/").map(Number);
   const eventData = new Date(year, month - 1, day);
 
@@ -42,6 +60,27 @@ export const SingleEvent = ({ event, handleClick }: SingleEventProps) => {
             })}
           </span>
         </div>
+
+        {isAdmin && (
+          <div className={styles.adminActions}>
+            <button
+              className={`${styles.adminButton} ${styles.editButton}`}
+              onClick={(e) => {
+                editEvent(e, event.id_evento);
+              }}
+            >
+              Editar
+            </button>
+            <button
+              className={`${styles.adminButton} ${styles.deleteButton}`}
+              onClick={(e) => {
+                deleteEvent(e, event.id_evento);
+              }}
+            >
+              Eliminar
+            </button>
+          </div>
+        )}
       </li>
     </>
   );

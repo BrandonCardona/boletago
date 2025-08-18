@@ -12,7 +12,7 @@ export const AuthGuard = () => {
       {auth.userInfo ? (
         <Outlet />
       ) : (
-        <Navigate replace to={`/${PublicRoutes.LOGIN}`} />
+        <Navigate replace to={`/${PublicRoutes.HOME}`} />
       )}
     </>
   );

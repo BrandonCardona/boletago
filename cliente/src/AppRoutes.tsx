@@ -1,8 +1,9 @@
 import { Navigate, Route } from "react-router-dom";
 import { RoutesWithNotFound } from "./utilities";
-import { PrivateRoutes, PublicRoutes } from "./models";
-import { HomePage, LoginPage, Private } from "./pages";
+import { PrivateRoutes, PublicRoutes, Roles } from "./models";
+import { Dashboard, EventEdit, HomePage, LoginPage, Private } from "./pages";
 import { AuthGuard } from "./guard/auth.guard";
+import { RoleGuard } from "./guard/rol.guard";
 
 export const AppRoutes = () => {
   return (
@@ -17,6 +18,14 @@ export const AppRoutes = () => {
 
         <Route element={<AuthGuard />}>
           <Route path={`/${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
+        </Route>
+
+        <Route element={<RoleGuard rol={Roles.ADMIN} />}>
+          <Route path={`/${PrivateRoutes.DASHBOARD}`} element={<Dashboard />} />
+          <Route
+            path={`/${PrivateRoutes.EDIT}/${PrivateRoutes.EVENT_DETAIL_PARAM}`}
+            element={<EventEdit />}
+          />
         </Route>
       </RoutesWithNotFound>
     </>

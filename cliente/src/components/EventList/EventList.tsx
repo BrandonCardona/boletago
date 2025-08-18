@@ -2,7 +2,7 @@ import type { EventosData } from "../../models/eventos";
 import { SingleEvent } from "./SingleEvent/SingleEvent";
 import styles from "./EventList.module.css";
 import { useNavigate } from "react-router-dom";
-import { PrivateRoutes } from "../../models";
+import { PrivateRoutes, Roles } from "../../models";
 import { useAuthContext } from "../../context/AuthContext";
 import { useModalContext } from "../../Modal/context/ModalContext";
 
@@ -15,6 +15,8 @@ export const EventList = ({ eventList }: EventListProps) => {
   const { setState, setPendingPath } = useModalContext();
   const { auth } = useAuthContext();
 
+  const isAdmin = auth.userInfo?.nombre_rol === Roles.ADMIN;
+
   const getEventId = (id: number) => {
     const path = `/${PrivateRoutes.PRIVATE}/${PrivateRoutes.EVENT_DETAIL}/${id}`;
 
@@ -26,6 +28,22 @@ export const EventList = ({ eventList }: EventListProps) => {
     }
   };
 
+  const editEvent = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.stopPropagation();
+    navigate(`/${PrivateRoutes.EDIT}/${id}`);
+  };
+
+  const deleteEvent = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.stopPropagation();
+    console.log("Eliminando el evento ", id);
+  };
+
   return (
     <>
       <ul className={styles.event_grid}>
@@ -35,6 +53,8 @@ export const EventList = ({ eventList }: EventListProps) => {
               handleClick={getEventId}
               key={event.id_evento}
               event={event}
+              isAdmin={isAdmin}
+              adminActions={{ editEvent, deleteEvent }}
             />
           );
         })}

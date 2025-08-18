@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: Props) => {
       const res = await rawAxios.post("/auth/refresh/refresh-token");
       if (res.data?.data) {
         const data = res.data?.data as RefreshProps;
-        console.log(data);
+
         setAuth({
           userInfo: data.userInfo,
           csrfToken: data.csrfToken,

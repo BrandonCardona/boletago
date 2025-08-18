@@ -1,8 +1,8 @@
 export const Dashboard = () => {
   return (
     <>
-      <h2>Dashboard</h2>
-      <h2>Solo se ve si estas logueado</h2>
+      <h2>Crear un Evento</h2>
+      <h2>Solo admins pueden verlo</h2>
     </>
   );
 };
