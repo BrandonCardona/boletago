@@ -50,4 +50,24 @@ export class EventoController {
       response(res, error.status  || 500, { message: error.message } )
     }
   }
+
+  static getArtistas = async (req, res) => {
+  try {
+    const artistas = await EventoModel.getArtista();
+    res.json(artistas);
+  } catch (error) {
+    console.error("Error al obtener artistas:", error);
+    throw new ClientError("Error al consultar los artistas", 500);
+  }
+};
+
+static getEstadios = async (req, res) => {
+  try {
+    const estadios = await EventoModel.getEstadio();
+    res.json(estadios);
+  } catch (error) {
+    console.error("Error al obtener estadios:", error);
+    throw new ClientError("Error al consultar los estadios", 500);
+  }
+};
 }

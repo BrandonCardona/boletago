@@ -125,6 +125,35 @@ export class EventoModel {
       throw new ClientError("Error al eliminar el evento", 500);
     }
   }
+
+static getArtista = async () => {
+  try {
+    const result = await pool.query(
+      `SELECT id_artista, nombre_artista
+       FROM artista`
+    );
+    return result.rows; 
+  } catch (error) {
+    console.error("Error al obtener artistas:", error);
+    throw new ClientError("Error al consultar los artistas", 500);
+  }
 }
+
+static getEstadio = async () => {
+  try {
+    const result = await pool.query(
+      `SELECT id_estadio, nombre_estadio
+       FROM estadio`
+    );
+    return result.rows; 
+  } catch (error) {
+    console.error("Error al obtener estadios:", error);
+    throw new ClientError("Error al consultar los estadios", 500);
+  }
+}
+
+
+}
+
 
 

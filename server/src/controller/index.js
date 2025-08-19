@@ -16,5 +16,7 @@ export const WrappeEventosController = {
   getEventoById: catchedAsync(EventoController.getEventoById),
   postEvento: catchedAsync(EventoController.postEvento),
   putEvento: catchedAsync(EventoController.putEvento),
-  deleteEvento: catchedAsync(EventoController.deleteEvento)
+  deleteEvento: catchedAsync(EventoController.deleteEvento),
+  getArtistas: catchedAsync(EventoController.getArtistas),
+  getEstadios: catchedAsync(EventoController.getEstadios)
 }

@@ -11,4 +11,6 @@ export interface EventosData {
 
 export interface SingleEventData extends EventosData {
   hora: string;
+    id_estadio: number;   
+  id_artista: number; 
 }

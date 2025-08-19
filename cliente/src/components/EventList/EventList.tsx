@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { PrivateRoutes, Roles } from "../../models";
 import { useAuthContext } from "../../context/AuthContext";
 import { useModalContext } from "../../Modal/context/ModalContext";
+import { toast } from "react-toastify";
+import { deleteEvento } from "../../services/eventos";
+
 
 interface EventListProps {
   eventList: EventosData[];
@@ -36,13 +39,25 @@ export const EventList = ({ eventList }: EventListProps) => {
     navigate(`/${PrivateRoutes.EDIT}/${id}`);
   };
 
-  const deleteEvent = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: number
-  ) => {
-    e.stopPropagation();
-    console.log("Eliminando el evento ", id);
-  };
+const deleteEvent = async (
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  id: number
+) => {
+  e.stopPropagation();
+
+  try {
+    const result = await deleteEvento(String(id));
+    if (!result) {
+      toast.error("Error al eliminar el evento");
+      return;
+    }
+    toast.success("Evento eliminado");
+    window.location.reload(); 
+  } catch (err) {
+    console.error("Error:", err);
+    toast.error("No se pudo eliminar el evento");
+  }
+};
 
   return (
     <>
