@@ -4,6 +4,7 @@ import { useSingleEvent } from "../../../hooks/useSingleEvent";
 import { LoadingScreen } from "../../../components";
 import { toast } from "react-toastify";
 import { getArtistas, getEstadios, putEvento } from "../../../services/eventos";
+import styles from "./EventEdit.module.css";
 
 export const EventEdit = () => {
   const { id } = useParams();
@@ -78,41 +79,51 @@ export const EventEdit = () => {
 
   return (
     <>
-      <h1>EDITANDO EL EVENTO DE ID {id}</h1>
+      <h1 className={styles.title}> EDITANDO EL EVENTO DE ID {id}</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text"
+        <input
+        className={styles.input}
+        type="text"
           name="nombre_evento"
           placeholder="Nombre del evento"
           value={formData.nombre_evento}
           onChange={handleChange}
           required
         />
-        <input type="date"
+        <input 
+        className={styles.input}
+        type="date"
           name="fecha"
           value={formData.fecha}
           onChange={handleChange}
           required
         />
-        <input type="time"
+        <input 
+        className={styles.input}
+        type="time"
           name="hora"
           value={formData.hora}
           onChange={handleChange}
           required
         />
-        <input type="text"
+        <input 
+        className={styles.input}
+        type="text"
           name="ciudad"
           value={formData.ciudad}
           onChange={handleChange}
           required
         />
-        <input type="text"
+        <input
+        className={styles.input}
+        type="text"
           name="direccion"
           value={formData.direccion}
           onChange={handleChange}
           required
         />
 
-        <select name="id_estadio" value={formData.id_estadio} onChange={handleChange} required>
+        <select className={styles.input} name="id_estadio" value={formData.id_estadio} onChange={handleChange} required>
           <option value="">Seleccione un estadio</option>
           {estadios.map((estadio) => (
             <option key={estadio.id_estadio} value={estadio.id_estadio}>
@@ -121,7 +132,7 @@ export const EventEdit = () => {
           ))}
         </select>
 
-        <select name="id_artista" value={formData.id_artista} onChange={handleChange} required>
+        <select className={styles.input} name="id_artista" value={formData.id_artista} onChange={handleChange} required>
           <option value="">Seleccione un artista</option>
           {artistas.map((artista) => (
             <option key={artista.id_artista} value={artista.id_artista}>
@@ -130,13 +141,17 @@ export const EventEdit = () => {
           ))}
         </select>
 
-        <input type="text"
+        <input
+        className={styles.input}
+        type="text"
           name="imagen"
           placeholder="URL Imagen"
           value={formData.imagen}
           onChange={handleChange}
         />
-        <button type="submit">Guardar cambios</button>
+        <button
+        className={styles.button}
+        type="submit">Guardar cambios</button>
       </form>
     </>
   );

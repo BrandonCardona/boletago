@@ -9,6 +9,12 @@ interface ModalContextProps {
   // Modal de registro
   stateRegister: boolean;
   setStateRegister: React.Dispatch<React.SetStateAction<boolean>>;
+
+  // MOdal de confirmación de eliminación
+  stateDelete: boolean; 
+  setStateDelete: React.Dispatch<React.SetStateAction<boolean>>;
+   eventToDelete: number | null; 
+  setEventToDelete: (id: number | null) => void; 
 }
 
 export const ModalContext = createContext<ModalContextProps | undefined>(
