@@ -7,6 +7,8 @@ import { DEFAULT_USERS } from "../libs/roles.js";
 export const eventoRouter = Router();
 
 eventoRouter.get("/eventos", WrappeEventosController.getEventos);
+eventoRouter.get("/artistas", [requireAuth], WrappeEventosController.getArtistas);
+eventoRouter.get("/estadios", [requireAuth], WrappeEventosController.getEstadios);
 eventoRouter.get("/:id", [requireAuth], WrappeEventosController.getEventoById);
 eventoRouter.post(
   "/post",
@@ -23,3 +25,4 @@ eventoRouter.delete(
   [requireAuth, hasRole()],
   WrappeEventosController.deleteEvento
 );
+

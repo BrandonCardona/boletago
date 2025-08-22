@@ -12,14 +12,13 @@ interface EventListProps {
 
 export const EventList = ({ eventList }: EventListProps) => {
   const navigate = useNavigate();
-  const { setState, setPendingPath } = useModalContext();
+  const { setState, setPendingPath, setStateDelete, setEventToDelete } = useModalContext();
   const { auth } = useAuthContext();
 
   const isAdmin = auth.userInfo?.nombre_rol === Roles.ADMIN;
 
   const getEventId = (id: number) => {
     const path = `/${PrivateRoutes.PRIVATE}/${PrivateRoutes.EVENT_DETAIL}/${id}`;
-
     if (auth.userInfo) {
       navigate(path);
     } else {
@@ -41,24 +40,24 @@ export const EventList = ({ eventList }: EventListProps) => {
     id: number
   ) => {
     e.stopPropagation();
-    console.log("Eliminando el evento ", id);
+     console.log("🗑 deleteEvent called with id:", id);
+    setEventToDelete(id);  // Guardamos el id en el contexto
+    setStateDelete(true);  // Abrimos el modal
+ 
+
   };
 
   return (
-    <>
-      <ul className={styles.event_grid}>
-        {eventList.map((event) => {
-          return (
-            <SingleEvent
-              handleClick={getEventId}
-              key={event.id_evento}
-              event={event}
-              isAdmin={isAdmin}
-              adminActions={{ editEvent, deleteEvent }}
-            />
-          );
-        })}
-      </ul>
-    </>
+    <ul className={styles.event_grid}>
+      {eventList.map((event) => (
+        <SingleEvent
+          handleClick={getEventId}
+          key={event.id_evento}
+          event={event}
+          isAdmin={isAdmin}
+          adminActions={{ editEvent, deleteEvent }}
+        />
+      ))}
+    </ul>
   );
 };
