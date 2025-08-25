@@ -24,7 +24,7 @@ export const EventEdit = () => {
 
   const [estadios, setEstadios] = useState<any[]>([]);
   const [artistas, setArtistas] = useState<any[]>([]);
-  
+
   useEffect(() => {
     if (data) {
       setFormData({
@@ -54,7 +54,9 @@ export const EventEdit = () => {
     fetchData();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -79,51 +81,57 @@ export const EventEdit = () => {
 
   return (
     <>
-      <h1 className={styles.title}> EDITANDO EL EVENTO DE ID {id}</h1>
+      <h1 className={styles.title}> EDICIÓN DE EVENTO</h1>
       <form onSubmit={handleSubmit}>
         <input
-        className={styles.input}
-        type="text"
+          className={styles.input}
+          type="text"
           name="nombre_evento"
           placeholder="Nombre del evento"
           value={formData.nombre_evento}
           onChange={handleChange}
           required
         />
-        <input 
-        className={styles.input}
-        type="date"
+        <input
+          className={styles.input}
+          type="date"
           name="fecha"
           value={formData.fecha}
           onChange={handleChange}
           required
         />
-        <input 
-        className={styles.input}
-        type="time"
+        <input
+          className={styles.input}
+          type="time"
           name="hora"
           value={formData.hora}
           onChange={handleChange}
           required
         />
-        <input 
-        className={styles.input}
-        type="text"
+        <input
+          className={styles.input}
+          type="text"
           name="ciudad"
           value={formData.ciudad}
           onChange={handleChange}
           required
         />
         <input
-        className={styles.input}
-        type="text"
+          className={styles.input}
+          type="text"
           name="direccion"
           value={formData.direccion}
           onChange={handleChange}
           required
         />
 
-        <select className={styles.input} name="id_estadio" value={formData.id_estadio} onChange={handleChange} required>
+        <select
+          className={styles.input}
+          name="id_estadio"
+          value={formData.id_estadio}
+          onChange={handleChange}
+          required
+        >
           <option value="">Seleccione un estadio</option>
           {estadios.map((estadio) => (
             <option key={estadio.id_estadio} value={estadio.id_estadio}>
@@ -132,7 +140,13 @@ export const EventEdit = () => {
           ))}
         </select>
 
-        <select className={styles.input} name="id_artista" value={formData.id_artista} onChange={handleChange} required>
+        <select
+          className={styles.input}
+          name="id_artista"
+          value={formData.id_artista}
+          onChange={handleChange}
+          required
+        >
           <option value="">Seleccione un artista</option>
           {artistas.map((artista) => (
             <option key={artista.id_artista} value={artista.id_artista}>
@@ -142,16 +156,16 @@ export const EventEdit = () => {
         </select>
 
         <input
-        className={styles.input}
-        type="text"
+          className={styles.input}
+          type="text"
           name="imagen"
           placeholder="URL Imagen"
           value={formData.imagen}
           onChange={handleChange}
         />
-        <button
-        className={styles.button}
-        type="submit">Guardar cambios</button>
+        <button className={styles.button} type="submit">
+          Guardar cambios
+        </button>
       </form>
     </>
   );
