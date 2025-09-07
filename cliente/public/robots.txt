@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://boletago.vercel.app/sitemap.xml
