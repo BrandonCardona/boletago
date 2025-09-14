@@ -7,11 +7,13 @@ import cookieParser from "cookie-parser";
 import { apiRouter } from "./routes/api.route.js";
 import { authMiddleware } from "./middlewares/auth.js";
 import { createRoles } from "./libs/initialSetup.js";
+import { rateLimiter } from "./middlewares/rateLimiter.js";
 
 const app = express();
 createRoles();
 
 app.use(json());
+app.use(rateLimiter);
 app.use(corsMiddleware());
 app.use(cookieParser());
 app.disable("x-powered-by");
